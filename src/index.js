@@ -126,24 +126,3 @@ function updateSongs() {
 	});
 }
 
-/* notes 
-
-  -ADD SONG button = > NEW WINDOW (add manually song title, artist) + automatically (duration,image(?))
-    > new div with unique id + general class for styling (border-bottom) +
-
-  -expand height on new song added +50px
-  -controls panel on the bottom
-  -play button on the song (stops the other song playing)
-*/
-
-// library.push({
-//   artist: "yeah",
-//   song: "yoooo",
-//   file: "nofile",
-//   audioDur: 90
-// });
-// updateSongs();
-
-// setInterval(() => {
-//   console.log(library);
-// }, 3000);
