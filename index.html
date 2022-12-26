@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Parcel Sandbox</title>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="src/styles.css" />
+	</head>
+
+	<body>
+		<div class="app"></div>
+		<h1>Skopify</h1>
+		<button id="add-song">Add Song</button>
+		<!-- window view -->
+		<div class="add-song-window">
+			<input type="file" id="fileInput" accept="audio/mpeg" />
+			<div class="test">
+				<button id="upload-btn">Upload song</button>
+				<p id="current-file-info">File chosen:</p>
+			</div>
+
+			<input type="text" class="artist-name" placeholder="Artist Name" />
+			<input type="text" class="song-name" placeholder="Song Title" />
+			<button id="add">add</button>
+			<button id="exit">Exit</button>
+		</div>
+		<!---->
+
+		<div class="songs-container"></div>
+
+		<audio id="player"></audio>
+		<script src="src/index.js"></script>
+	</body>
+</html>
