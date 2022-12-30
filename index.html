@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Parcel Sandbox</title>
-		<meta charset="UTF-8" />
-		<link rel="stylesheet" href="src/styles.css" />
-	</head>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
 
-	<body>
-		<div class="app"></div>
-		<h1>Skopify</h1>
-		<button id="add-song">Add Song</button>
-		<!-- window view -->
-		<div class="add-song-window">
-			<input type="file" id="fileInput" accept="audio/mpeg" />
-			<div class="test">
-				<button id="upload-btn">Upload song</button>
-				<p id="current-file-info">File chosen:</p>
-			</div>
+  <body>
+    <div id="app">
+      <h1>Spotify</h1>
+      <button id="add-song">ADD</button>
+      <div id='songs-container'>
+      <!-- <div class="song">
+        <span class="artist">The Weeknd</span>
+        <span class="title">After Hours</span>
+        <span class="duration">3:20</span>
+        <button class="play-button">▶</button>
+        <button class="delete-button">✖</button>
+      </div> -->
+      <!-- <div class="song">
+				<span class="artist">The Weeknd</span>
+				<span class="title">After Hours</span>
+				<span class="duration">3:20</span>
+				<button class="play-button">▶</button>
+			</div> -->
+    </div>
+      
+    </div>
 
-			<input type="text" class="artist-name" placeholder="Artist Name" />
-			<input type="text" class="song-name" placeholder="Song Title" />
-			<button id="add">add</button>
-			<button id="exit">Exit</button>
-		</div>
-		<!---->
-
-		<div class="songs-container"></div>
-
-		<audio id="player"></audio>
-		<script src="src/index.js"></script>
-	</body>
+    <div class="add-song-window">
+      <input type="file" id="fileInput" accept="audio/mpeg" />
+      <button id="upload-btn">Upload song ⬆️</button>
+      <div>File chosen: <span id="current-file-info"></span></div>
+      <input type="text" class="artist-name" placeholder="Artist Name" />
+      <input type="text" class="song-name" placeholder="Song Title" />
+      <div class="add-exit">
+        <button id="add">➕</button>
+        <button id="exit">↩</button>
+      </div>
+    </div>
+    <script src="src/index.js"></script>
+  </body>
 </html>
