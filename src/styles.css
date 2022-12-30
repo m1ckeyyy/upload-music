@@ -1,89 +1,185 @@
 body {
 	font-family: sans-serif;
 }
-.songs-container {
+* {
+	/* border: 1px solid green; */
+	margin: 0;
+	padding: 0;
+}
+#app {
+	position: relative;
+	border: 2px solid black;
+	border-radius: 10px;
 	width: 500px;
-	height: 0px;
+	display: grid;
+	justify-items: center;
+	margin: 0 auto;
+	height: 48px;
+	margin-top: 30px;
 }
 
-.artist-name,
-.song-name,
-#upload-btn,
-#exit,
-#add {
-	margin-top: 5px;
+h1 {
+	font-size: 20px;
+	margin-bottom: 30px;
+	margin-top: 10px;
+}
+
+.song {
+	position: relative;
+	width: 500px;
+	margin: 0 10px;
+}
+.artist {
+	position: relative;
+}
+.artist::before {
+	content: "Artist:";
+	position: absolute;
+	bottom: 20px;
+	font-size: 12px;
+}
+.title {
+	position: relative;
+}
+.title::before {
+	content: "Title:";
+	position: absolute;
+	bottom: 20px;
+	font-size: 12px;
+}
+.duration {
+	position: relative;
+}
+.duration::before {
+	content: "Duration:";
+	position: absolute;
+	bottom: 20px;
+	font-size: 12px;
+}
+.title {
+}
+span {
+	/* margin-right: 70px; */
+}
+.play-button {
+	cursor: pointer;
+	position: absolute;
+	border: 1px solid black;
+	border-radius: 15px;
 	margin-right: 10px;
-	height: 50px;
-	width: 200px;
+	height: 25px;
+	width: 25px;
+	bottom: 14px;
+	margin-bottom: 5px;
+	font-size: 13px;
+	right: 30px;
+	transition: font-size 0.1s;
 }
-.artist-name,
-.song-name,
-#exit,
-#add {
+.play-button:hover {
+	font-size: 15px;
+}
+.delete-button {
+	cursor: pointer;
+	position: absolute;
+	border: 1px solid black;
+	border-radius: 15px;
+	margin-right: 10px;
+	height: 25px;
+	width: 25px;
+	bottom: 14px;
+	margin-bottom: 5px;
+	font-size: 13px;
+	right: 70px;
+	transition: font-size 0.1s;
+}
+#add-song {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	position: absolute;
+	right: -19px;
+	top: -8px;
+	border: 2px solid black;
+	border-radius: 30px;
+	font-weight: bold;
 	height: 30px;
-	background-color: rgb(231, 219, 149);
+	width: 40px;
+	background-color: rgb(172, 211, 212);
+	transition: background-color 0.2s;
 }
-#add,
-#exit {
-	width: 45px;
+#add-song:hover {
+	background-color: rgb(144, 194, 147);
+}
+#app {
+	/* display: none; */
+}
+
+/* 
+s */
+
+.add-song-window {
+	border: 2px solid black;
+	padding: 10px;
+	border-radius: 10px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	width: 300px;
+	max-height: 320px;
+	align-items: center;
+	margin-top: 15px;
+	display: none;
+}
+.add-song-window > * {
+	box-sizing: border-box;
+
+	width: 100%;
+	margin: 5px 0px;
+	border: 1px solid black;
+	padding: 15px 10px;
 }
 #fileInput {
 	display: none;
 }
 #upload-btn {
-	/* content: 'ha'; */
-	/* line-height:20px; */
-	position: relative;
-	border: 2px solid black;
 	cursor: pointer;
-	border-radius: 20px;
-	width: 130px;
-	display: inline-block;
-	background-color: rgb(231, 219, 149);
-	padding: 10px 20px;
+	font-weight: bold;
 	font-size: 16px;
+}
+#current-file-info {
+	padding: 10px 10px;
+	font-size: 13px;
+	font-style: italic;
+	border-radius: 5px;
+}
+.add-exit {
+	border: none;
+	display: flex;
+	justify-content: space-between;
+}
+#add {
+	width: 60px;
+	padding: 0;
+	font-size: 25px;
+	background: none;
+	border: none;
 	cursor: pointer;
 }
-.add-song-window {
-	display: none;
-	justify-content: center;
-	align-items: center;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 999;
-
-	background-color: rgb(121, 117, 117, 0.5);
-}
-
-.songs {
-	display: flex;
-	justify-content: space-around;
-	border: 2px solid black;
-	margin-top: 10px;
-	align-items: center;
-}
-
-#current-file-info {
-	all: initial;
-
-	font-family: sans-serif;
-	position: absolute;
-	top: 55px;
-	white-space: nowrap;
-	left: 138px;
-}
-
-.play-stop-button,
-.delete-button {
-	height: 24px;
+#exit {
+	cursor: pointer;
+	width: 60px;
+	padding: 0;
+	font-size: 30px;
 	background: none;
-
-	border: 2px solid black;
-	align-items: center;
-	border-radius: 5px;
-	line-height: 1.5em;
-	text-align: center;
+	border: none;
+}
+#add:hover,
+#exit:hover {
+	border-bottom: 1px solid black;
+}
+.artist,
+.title,
+.duration {
+	margin-right: 50px;
 }

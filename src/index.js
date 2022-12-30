@@ -1,128 +1,120 @@
-const fileInput = document.getElementById("fileInput");
+const uploadBtn = document.querySelector("#upload-btn");
+const fileInput = document.querySelector("#fileInput");
+const addSong = document.querySelector("#add-song");
+const app = document.querySelector("#app");
 const addSongWindow = document.querySelector(".add-song-window");
-const addSong = document.getElementById("add-song");
-const uploadBtn = document.getElementById("upload-btn");
-const exit = document.getElementById("exit");
-const add = document.getElementById("add");
-const audio = document.getElementById("player");
-const fileName = document.getElementById("current-file-info");
+const exit = document.querySelector("#exit");
 const artistName = document.querySelector(".artist-name");
 const songName = document.querySelector(".song-name");
-const songsContainer = document.querySelector(".songs-container");
-const library = [];
-let temp;
-let file;
-let audioDuration;
 
-fileInput.onchange = loadFile; //oninputchange do
+const fileName = document.querySelector("#current-file-info");
+const add = document.querySelector("#add");
+const songsLibrary = [];
+let file, audioDuration;
 
-function loadFile() {
-	file = fileInput.files[0];
-	if (!file) {
-		alert("Please choose a file first.");
-		fileName.innerHTML = "File: ";
-		return;
-	}
-	fileName.innerHTML = `File: ${file.name}`;
-	const tempAudio = document.createElement("audio");
-	tempAudio.src = URL.createObjectURL(file);
-	tempAudio.onloadedmetadata = function () {
-		audioDuration = tempAudio.duration;
-		console.log("loadedmd");
-		return [file, audioDuration];
-	};
-}
+uploadBtn.addEventListener("click", function () {
+  fileInput.click();
+});
 
-addSong.onclick = () => {
-	addSongWindow.style.display = "flex";
+addSong.addEventListener("click", function () {
+  //display: grid;
+  app.style.display = "none";
+  addSongWindow.style.display = "flex";
+});
+exit.addEventListener("click", function () {
+  app.style.display = "grid";
+  addSongWindow.style.display = "none";
+});
+
+const loadFile = function () {
+  file = fileInput.files[0];
+  fileName.innerHTML = String(file.name);
+  const tempAudio = document.createElement("audio");
+  tempAudio.src = URL.createObjectURL(file);
+  tempAudio.onloadedmetadata = function () {
+    audioDuration = tempAudio.duration;
+  };
 };
-uploadBtn.onclick = () => {
-	fileInput.click();
-};
-exit.onclick = () => {
-	addSongWindow.style.display = "none";
-};
+fileInput.onchange = loadFile;
 
-add.onclick = () => {
-	if (!file) {
-		alert("Please upload");
-		return;
-	}
-	if (!artistName.value || !songName.value) {
-		alert("Please fill the data");
-		return;
-	}
+add.addEventListener("click", function () {
+  if (!file) {
+    alert("Please choose a file first.");
+    return;
+  }
+  if (songName.value === "" || artistName.value === "") {
+    alert("Fill the missing details");
+    return;
+  }
+  const newSongData = {
+    artist: artistName.value,
+    song: songName.value,
+    file: URL.createObjectURL(file),
+    audioDur: Math.floor(audioDuration)
+  };
+  songsLibrary.push(newSongData);
 
-	let url = URL.createObjectURL(file);
-	// console.log(url);
-	// audio.src = url;
+  artistName.value = "";
+  songName.value = "";
+  fileInput.value = "";
+  fileName.innerHTML = "";
+  audioDuration = 0;
+  app.style.display = "grid";
+  addSongWindow.style.display = "none";
+  app.style.height = `${app.offsetHeight + 72}px`;
+  file=null;
+  updateSongs();
+});
 
-	// console.log("add");
-	// audioDuration = audio.duration;
-
-	const newSongData = {
-		artist: artistName.value,
-		song: songName.value,
-		file: url,
-		audioDur: Math.floor(audioDuration),
-	};
-	library.push(newSongData);
-
-	artistName.value = "";
-	songName.value = "";
-	fileInput.value = "";
-	fileName.innerHTML = "File:";
-	audioDuration = 0;
-	addSongWindow.style.display = "none";
-	songsContainer.style.height = `${songsContainer.offsetHeight + 50}px`;
-	updateSongs();
-};
-
-function updateSongs() {
-	songsContainer.innerHTML = "";
-
-	library.forEach((element, index) => {
-		// console.log(element.file2.src)
-		console.log(element);
-		songsContainer.insertAdjacentHTML(
-			"beforeend",
-			`<div class="song-${index} songs">
-          <span id="play-stop-button-${index}" class='play-stop-button'>▶️</span>
-			<span id="delete-button-${index}" class='delete-button'>❌</span>
+const updateSongs = function () {
+  app.innerHTML='';
+  app.insertAdjacentHTML('beforeend','<h1>Spotify</h1><button id="add-song">ADD</button>')
+  document.querySelector("#add-song").addEventListener("click", function () {
+    //display: grid;
+    app.style.display = "none";
+    addSongWindow.style.display = "flex";
+  });
+  songsLibrary.forEach((element, index) => {
+    app.insertAdjacentHTML(
+      "beforeend",
+      `<div class="song-${index} song">
+          <button id="play-stop-button-${index}" class='play-button'>▶️</button>
+			    <button id="delete-button-${index}" class='delete-button'>✖</button>
 
     
-        <p id="artist-name">${element.artist}</p>
-        <p id="song-name">${element.song}</p>
-        <p id="audio-length">${
-					Math.floor(element.audioDur / 60) +
-					"min " +
-					Math.floor(element.audioDur % 60) +
-					"s"
-				}</p>
+        <span class="artist">${element.artist}</span>
+        <span class="title">${element.song}</span>
+        <span class="duration">${
+          Math.floor(element.audioDur / 60) +
+          "min " +
+          Math.floor(element.audioDur % 60) +
+          "s"
+        }</span>
         <audio class='audio-${index}' src='${element.file}'></audio>
       </div>`
-		);
-		//prettier-ignore
-		document.getElementById(`play-stop-button-${index}`).addEventListener('click',function () {
-			temp = this.parentNode.querySelector(`.audio-${index}`);
-			if (temp.paused) {
-				// console.log("play");
-				temp.play();
+    );
+    //prettier-ignore
+    document.getElementById(`play-stop-button-${index}`).addEventListener('click',function () {
+			if (document.querySelector(`.audio-${index}`).paused) {
+        document.querySelector(`.audio-${index}`).play();
 				this.textContent = "⏸️";
 			} else {
-				// console.log("puase");
-				temp.pause();
+        document.querySelector(`.audio-${index}`).pause();
 				this.textContent = "▶️";
 			}
-		})
-
-		document
-			.getElementById(`delete-button-${index}`)
-			.addEventListener("click", function () {
-				this.parentNode.remove();
-				library.splice(index, 1);
-				songsContainer.style.height = `${songsContainer.offsetHeight - 50}px`;
-			});
-	});
-}
-
+		});
+    //   <div class="song">
+    //   <span class="artist">The Weeknd</span>
+    //   <span class="title">After Hours</span>
+    //   <span class="duration">3:20</span>
+    //   <button class="play-button">▶</button>
+    // </div>
+    document
+      .getElementById(`delete-button-${index}`)
+      .addEventListener("click", function () {
+        this.parentNode.remove();
+        songsLibrary.splice(index, 1);
+        app.style.height = `${app.offsetHeight - 50}px`;
+      });
+  });
+};
